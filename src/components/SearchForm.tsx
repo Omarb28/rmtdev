@@ -1,6 +1,14 @@
-export default function SearchForm() {
+export default function SearchForm({ searchText, onSearchTextChange }) {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onSearchTextChange(event.target.value);
+  };
+
   return (
-    <form action="#" className="search">
+    <form action="#" className="search" onSubmit={handleSubmit}>
       <button type="submit">
         <i className="fa-solid fa-magnifying-glass"></i>
       </button>
@@ -10,6 +18,8 @@ export default function SearchForm() {
         type="text"
         required
         placeholder="Find remote developer jobs..."
+        onChange={handleChange}
+        value={searchText}
       />
     </form>
   );

@@ -2,7 +2,7 @@ import BookmarksButton from "./BookmarksButton";
 import Logo from "./Logo";
 import SearchForm from "./SearchForm";
 
-export default function Header() {
+export default function Header({ searchText, onSearchTextChange }) {
   return (
     <header className="header">
       <div className="header__top">
@@ -11,7 +11,10 @@ export default function Header() {
         <BookmarksButton />
       </div>
 
-      <SearchForm />
+      <SearchForm
+        searchText={searchText}
+        onSearchTextChange={onSearchTextChange}
+      />
     </header>
   );
 }
