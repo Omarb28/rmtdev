@@ -1,13 +1,5 @@
+import { TJobItem } from "../lib/types";
 import BookmarkIcon from "./BookmarkIcon";
-
-export type TJobItem = {
-  id: number;
-  badgeLetters: string;
-  title: string;
-  company: string;
-  daysAgo: number;
-  relevanceScore: number;
-};
 
 type JobListItemProps = {
   jobItem: TJobItem;
