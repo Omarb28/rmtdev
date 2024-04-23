@@ -1,4 +1,12 @@
-export default function SearchForm({ searchText, onSearchTextChange }) {
+type SearchFormProps = {
+  searchText: string;
+  onSearchTextChange: (text: string) => void;
+};
+
+export default function SearchForm({
+  searchText,
+  onSearchTextChange,
+}: SearchFormProps) {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };

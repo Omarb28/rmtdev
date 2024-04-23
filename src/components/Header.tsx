@@ -1,20 +1,13 @@
-import BookmarksButton from "./BookmarksButton";
-import Logo from "./Logo";
-import SearchForm from "./SearchForm";
+import React from "react";
 
-export default function Header({ searchText, onSearchTextChange }) {
-  return (
-    <header className="header">
-      <div className="header__top">
-        <Logo />
+type HeaderProps = {
+  children: React.ReactNode;
+};
 
-        <BookmarksButton />
-      </div>
+export default function Header({ children }: HeaderProps) {
+  return <header className="header">{children}</header>;
+}
 
-      <SearchForm
-        searchText={searchText}
-        onSearchTextChange={onSearchTextChange}
-      />
-    </header>
-  );
+export function HeaderTop({ children }: HeaderProps) {
+  return <div className="header__top">{children}</div>;
 }

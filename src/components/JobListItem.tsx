@@ -1,6 +1,6 @@
 import BookmarkIcon from "./BookmarkIcon";
 
-type JobItem = {
+export type TJobItem = {
   id: number;
   badgeLetters: string;
   title: string;
@@ -10,7 +10,7 @@ type JobItem = {
 };
 
 type JobListItemProps = {
-  jobItem: JobItem;
+  jobItem: TJobItem;
 };
 
 export default function JobListItem({ jobItem }: JobListItemProps) {

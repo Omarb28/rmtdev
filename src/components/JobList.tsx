@@ -1,6 +1,10 @@
-import JobListItem from "./JobListItem";
+import JobListItem, { TJobItem } from "./JobListItem";
 
-export function JobList({ jobItems }) {
+type JobListProps = {
+  jobItems: TJobItem[];
+};
+
+export function JobList({ jobItems }: JobListProps) {
   return (
     <ul className="job-list">
       {jobItems.map((jobItem) => {
