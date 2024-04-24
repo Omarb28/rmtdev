@@ -11,12 +11,13 @@ import ResultsCount from "./ResultsCount";
 import SortingControls from "./SortingControls";
 import JobList from "./JobList";
 import PaginationControls from "./PaginationControls";
-import { useJobItems } from "../lib/hooks";
+import { useActiveJobId, useJobItems } from "../lib/hooks";
 import { useState } from "react";
 
 function App() {
   const [searchText, setSearchText] = useState("");
-  const { jobItems, isLoading } = useJobItems(searchText);
+  const [jobItems, isLoading] = useJobItems(searchText);
+  const activeJobId = useActiveJobId();
 
   const onSearchTextChange = (text: string) => {
     setSearchText(text);
@@ -49,7 +50,7 @@ function App() {
           <PaginationControls />
         </Sidebar>
 
-        <JobItemContent />
+        <JobItemContent activeJobId={activeJobId} />
       </Container>
 
       <Footer />
