@@ -4,15 +4,15 @@ import Spinner from "./Spinner";
 
 type JobListProps = {
   jobItems: TJobItem[];
-  isLoading: boolean;
+  isLoadingList: boolean;
 };
 
-export function JobList({ jobItems, isLoading }: JobListProps) {
+export function JobList({ jobItems, isLoadingList }: JobListProps) {
   return (
     <ul className="job-list">
-      {isLoading ? <Spinner /> : null}
+      {isLoadingList ? <Spinner /> : null}
 
-      {!isLoading &&
+      {!isLoadingList &&
         jobItems.map((jobItem) => {
           return <JobListItem key={jobItem.id} jobItem={jobItem} />;
         })}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { TJobItem } from "./types";
+import { TJobItem, TJobItemDetails } from "./types";
+import { BASE_API_URL } from "./constants";
 
 export function useActiveJobId() {
   const [activeJobId, setActiveJobId] = useState<number | null>(null);
@@ -23,7 +24,7 @@ export function useActiveJobId() {
 
 export function useJobItems(searchText: string) {
   const [jobItems, setJobItems] = useState<TJobItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingList, setIsLoadingList] = useState(false);
 
   const jobItemsSliced = jobItems.slice(0, 7);
 
@@ -33,10 +34,8 @@ export function useJobItems(searchText: string) {
 
     const fetchData = async () => {
       try {
-        setIsLoading(true);
-        const response = await fetch(
-          `https://bytegrad.com/course-assets/projects/rmtdev/api/data?search=${searchText}`
-        );
+        setIsLoadingList(true);
+        const response = await fetch(`${BASE_API_URL}?search=${searchText}`);
         const data = await response.json();
 
         console.log(data);
@@ -44,11 +43,40 @@ export function useJobItems(searchText: string) {
       } catch (error) {
         console.error(error);
       }
-      setIsLoading(false);
+      setIsLoadingList(false);
     };
 
     fetchData();
   }, [searchText]);
 
-  return [jobItemsSliced, isLoading] as const;
+  return [jobItemsSliced, isLoadingList] as const;
+}
+
+export function useJobItemDetails(id: number | null) {
+  const [jobItemDetails, setJobItemDetails] = useState<TJobItemDetails | null>(
+    null
+  );
+  const [isLoadingDetails, setIsLoadingDetails] = useState(false);
+
+  useEffect(() => {
+    if (!id) return;
+    if (jobItemDetails && id === jobItemDetails.id) return;
+
+    const fetchData = async () => {
+      try {
+        setIsLoadingDetails(true);
+        const response = await fetch(`${BASE_API_URL}/${id}`);
+        const data = await response.json();
+
+        console.log(data);
+        setJobItemDetails(data.jobItem);
+      } catch (error) {
+        console.error(error);
+      }
+      setIsLoadingDetails(false);
+    };
+
+    fetchData();
+  }, [id]);
+  return [jobItemDetails, isLoadingDetails] as const;
 }
