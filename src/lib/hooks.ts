@@ -26,6 +26,7 @@ export function useJobItems(searchText: string) {
   const [jobItems, setJobItems] = useState<TJobItem[]>([]);
   const [isLoadingList, setIsLoadingList] = useState(false);
 
+  const totalNumberOfResults = jobItems.length;
   const jobItemsSliced = jobItems.slice(0, 7);
 
   useEffect(() => {
@@ -49,7 +50,7 @@ export function useJobItems(searchText: string) {
     fetchData();
   }, [searchText]);
 
-  return [jobItemsSliced, isLoadingList] as const;
+  return { jobItemsSliced, isLoadingList, totalNumberOfResults } as const;
 }
 
 export function useJobItemDetails(id: number | null) {
@@ -78,5 +79,5 @@ export function useJobItemDetails(id: number | null) {
 
     fetchData();
   }, [id]);
-  return [jobItemDetails, isLoadingDetails] as const;
+  return { jobItemDetails, isLoadingDetails } as const;
 }

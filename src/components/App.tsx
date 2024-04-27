@@ -16,9 +16,10 @@ import { useState } from "react";
 
 function App() {
   const [searchText, setSearchText] = useState("");
-  const [jobItems, isLoadingList] = useJobItems(searchText);
+  const { jobItemsSliced, isLoadingList, totalNumberOfResults } =
+    useJobItems(searchText);
   const activeJobId = useActiveJobId();
-  const [jobItemDetails, isLoadingDetails] = useJobItemDetails(activeJobId);
+  const { jobItemDetails, isLoadingDetails } = useJobItemDetails(activeJobId);
 
   const onSearchTextChange = (text: string) => {
     setSearchText(text);
@@ -43,11 +44,15 @@ function App() {
       <Container>
         <Sidebar>
           <SidebarTop>
-            <ResultsCount />
+            <ResultsCount totalNumberOfResults={totalNumberOfResults} />
             <SortingControls />
           </SidebarTop>
 
-          <JobList jobItems={jobItems} isLoadingList={isLoadingList} />
+          <JobList
+            jobItems={jobItemsSliced}
+            isLoadingList={isLoadingList}
+            activeJobId={activeJobId}
+          />
           <PaginationControls />
         </Sidebar>
 
