@@ -31,7 +31,6 @@ export function useJobItems(searchText: string) {
 
   useEffect(() => {
     if (!searchText) return;
-    if (searchText !== "react") return;
 
     const fetchData = async () => {
       try {
@@ -80,4 +79,16 @@ export function useJobItemDetails(id: number | null) {
     fetchData();
   }, [id]);
   return { jobItemDetails, isLoadingDetails } as const;
+}
+
+export function useDebounce<T>(value: T, delay: number = 500) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timerId = setTimeout(() => setDebouncedValue(debouncedValue), delay);
+
+    return () => clearTimeout(timerId);
+  }, [value, delay]);
+
+  return debouncedValue;
 }

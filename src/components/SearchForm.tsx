@@ -28,6 +28,7 @@ export default function SearchForm({
         placeholder="Find remote developer jobs..."
         onChange={handleChange}
         value={searchText}
+        autoFocus={true}
       />
     </form>
   );
